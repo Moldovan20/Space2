@@ -45,7 +45,6 @@ class Person
         
          this.x -= this.speed;
          
-         
         }
 
         else if (key == "right")

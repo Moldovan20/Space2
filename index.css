@@ -2,6 +2,7 @@
 body{
     background :linear-gradient(100deg, rgb(215, 59, 59), rgb(223, 138, 27), rgb(22, 163, 29));
     background-repeat: no-repeat;
+   
 }
 
 #bandit1, #bandit2, #bandit3, #police1, #police2, #police3, #law, #lawyer1, #lawyer2, #lawyer3, #money, #handcuffs{
@@ -12,6 +13,21 @@ body{
 #game{
     display: grid;
     justify-content: center;
+}
+
+#restart{
+    background-color: #4CAF50; 
+  border-radius: 20%;
+  border-color:rgb(22, 184, 95);
+  color: white;
+  padding: 15px 32px;
+  display:center;
+  font-size: 16px;
+  position : absolute;
+  top: justify;
+  left:justify;
+ 
+
 }
 
 

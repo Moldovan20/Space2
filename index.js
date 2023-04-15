@@ -6,7 +6,7 @@ window.addEventListener('load',function()
     const canvas = document.getElementById('canvas')
     const ctx = canvas.getContext('2d');
     const canvasWidth = canvas.width = 800;
-    const canvasHeight = canvas.height = 800;
+    const canvasHeight = canvas.height = 900;
     
     
     const bandit1Image = document.getElementById("bandit1");
@@ -25,7 +25,7 @@ window.addEventListener('load',function()
     const lawImage = document.getElementById("law");
     const moneyImage = document.getElementById("money");
 
-    let score = 0;
+    var score = 0;
     let moveOnce = false;
     let index = 0;
 
@@ -82,18 +82,24 @@ window.addEventListener('load',function()
     }
 
     let lastTime = 0;
-    let time = 60;
+    var time = 60;
     let seconds = 0;
     let timer = 0;
     let gameOver = false;
-     
-    function animate(timeStamp)
-    {
 
-        const deltaTime = timeStamp - lastTime;
-        lastTime = timeStamp;
+    const restartButton = document.getElementById('restart');
+
+    restartButton.addEventListener('click', function() {
+      location.reload();
+    });
         
-        timer += deltaTime;
+         function animate(timeStamp)
+         {
+             
+             const deltaTime = timeStamp - lastTime;
+             lastTime = timeStamp;
+             
+             timer += deltaTime;
         
         if(timer >= 1000){
             seconds++;
@@ -183,12 +189,23 @@ window.addEventListener('load',function()
         ctx.fillText("Score : "+score, 100, 50);
         
         ctx.fillText("Time : " + timing, 600, 50);
-
-        ctx.font= "36px Comic Sans MS";
-        if(gameOver)ctx.fillText("Finish your score : " + score, 300, 300)
+        
+        ctx.font= "30px Comic Sans MS";
+        if(gameOver){
+            ctx.fillText("Finish your score : " + score, 80, 500)
+        }
+            
+        
         requestAnimationFrame(animate);
-    }
-  
+      }
+      
      animate(0);  
+    
    
 });
+
+function restart()
+{
+    score = 0;
+    time = 0;
+}
