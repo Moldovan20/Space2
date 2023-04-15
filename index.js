@@ -80,9 +80,32 @@ window.addEventListener('load',function()
             moveOnce = true;
         }       
     }
+
+    let lastTime = 0;
+    let time = 60;
+    let seconds = 0;
+    let timer = 0;
+    let gameOver = false;
      
-    function animate()
+    function animate(timeStamp)
     {
+
+        const deltaTime = timeStamp - lastTime;
+        lastTime = timeStamp;
+        
+        timer += deltaTime;
+        
+        if(timer >= 1000){
+            seconds++;
+            timer = 0;      
+        }
+
+        let timing = time - seconds;
+        if(timing <= 0)
+        {
+            gameOver = true;
+            timing = 0;
+        }
         
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         
@@ -115,12 +138,9 @@ window.addEventListener('load',function()
           });
 
           const directionMoney =  persons[index].getY() > canvasHeight;
-          
-          
           const directionLaw = persons[index].getX() < 0;
-          
           const directionHandcuffs = persons[index].getX() > canvasWidth;
-            
+        
             //////////////////////////////////direction Law//////////////////////
         if(directionLaw && persons[index].getpersonCategory() === "lawyer")
         {  
@@ -159,12 +179,16 @@ window.addEventListener('load',function()
         if(score < 0)score = 0;
                
         ctx.font = "30px Comic Sans MS";
-        ctx.fillStyle = "rgb(0, 0, 0)";
-        ctx.textAlign = "center";
+        ctx.fillStyle = "rgb(0, 0, 0)";      
         ctx.fillText("Score : "+score, 100, 50);
+        
+        ctx.fillText("Time : " + timing, 600, 50);
+
+        ctx.font= "36px Comic Sans MS";
+        if(gameOver)ctx.fillText("Finish your score : " + score, 300, 300)
         requestAnimationFrame(animate);
     }
   
-     animate();  
+     animate(0);  
    
 });
