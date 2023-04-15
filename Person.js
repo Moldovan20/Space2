@@ -7,11 +7,10 @@ class Person
         this.width = 512;
         this.height = 512;
         this.x = canvasWidth/2-50;
-        this.y = 500-position;
+        this.y = 480-position;
         this.image = image;
         this.personCategory = personCategory;
-        this.speed = 100;
-        this.scale = 6;
+        this.speed = 1000;
     }
 
     getY()
@@ -31,7 +30,7 @@ class Person
 
     move()
     {
-        this.y +=80;
+        this.y +=100;
     }
 
 
@@ -43,16 +42,16 @@ class Person
     {
         if(key == "left")
         {
-            
+        
          this.x -= this.speed;
-         this.y += this.speed;
+         
          
         }
 
         else if (key == "right")
         {
             this.x += this.speed;
-            this.y += this.speed;       
+                  
         }
 
         else if (key == "down")

@@ -9,3 +9,9 @@ body{
    display:none;
 
 }
+#game{
+    display: grid;
+    justify-content: center;
+}
+
+

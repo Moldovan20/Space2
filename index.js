@@ -5,8 +5,8 @@ window.addEventListener('load',function()
 
     const canvas = document.getElementById('canvas')
     const ctx = canvas.getContext('2d');
-    const canvasWidth = canvas.width = 700;
-    const canvasHeight = canvas.height = 700;
+    const canvasWidth = canvas.width = 800;
+    const canvasHeight = canvas.height = 800;
     
     
     const bandit1Image = document.getElementById("bandit1");
@@ -33,7 +33,7 @@ window.addEventListener('load',function()
     {
         let position = 1;
         
-        while(persons.length < 12)
+        while(persons.length < 120)
         {
             
             let a = Math.random()*3;
@@ -47,7 +47,7 @@ window.addEventListener('load',function()
                 else if(c > 2)persons.push(new Person(canvasWidth, bandit3Image, 100*position, "bandit"));  
                 else if(c > 1)persons.push(new Person(canvasWidth, bandit2Image, 100*position, "bandit")); 
             }
-            else if(a > 1 && a <= 2)
+            if(a > 1 && a <= 2)
             {
                 let c = Math.random()*3;
 
@@ -90,10 +90,9 @@ window.addEventListener('load',function()
 
         ctx.drawImage(handcuffsImage, 0, 0, canvasWidth, canvasHeight,canvasWidth-200, canvasHeight-180, 256, 256);
 
-        ctx.drawImage(moneyImage, 0, 0, canvasWidth, canvasHeight,canvasWidth-450, canvasHeight-180, 256, 256);
+        ctx.drawImage(moneyImage, 0, 0, canvasWidth, canvasHeight,300, canvasHeight-180, 256, 256);
               
         handlePersons();
-        
         document.addEventListener('keyup', event => {
             if (event.key === 'ArrowLeft')
             {
@@ -102,6 +101,7 @@ window.addEventListener('load',function()
                 
             } else if (event.key === 'ArrowRight') 
             {
+                
                 persons[index].update("right");
                 moveOnce = false;
                 
@@ -114,57 +114,43 @@ window.addEventListener('load',function()
 
           });
 
-          const directionLaw = persons[index].getY() > canvasHeight && persons[index].getX() < 200;
-
-          const directionMoney = persons[index].getY()  > canvasHeight && persons[index].getX() > 300;
-
-          const directionHandcuffs = persons[index].getY() >
-          canvasHeight;
-
+          const directionMoney =  persons[index].getY() > canvasHeight;
+          
+          
+          const directionLaw = persons[index].getX() < 0;
+          
+          const directionHandcuffs = persons[index].getX() > canvasWidth;
+            
             //////////////////////////////////direction Law//////////////////////
-        if(directionLaw && persons[index].getpersonCategory() == "lawyer")
+        if(directionLaw && persons[index].getpersonCategory() === "lawyer")
         {  
             score += 50;
             index++; 
         }
-        else if(directionLaw && persons[index].getpersonCategory() == "bandit")
+        else if(directionLaw && persons[index].getpersonCategory() !== "lawyer")
         {  
             score -= 50;
             index++;       
         }
-        else if(directionLaw && persons[index].getpersonCategory() == "police")
-        {  
-            score -= 50;
-            index++;       
-        }
+       
         //////////////////////////////////////direction money////////////////////
-        if(directionMoney && persons[index].getpersonCategory() == "bandit")
+        if(directionMoney && persons[index].getpersonCategory() === "bandit")
         {  
             score += 50;
             index++; 
         }
-        else if(directionMoney && persons[index].getpersonCategory() == "police")
-        {  
-            score -= 50;
-            index++;       
-        }
-        else if(directionMoney && persons[index].getpersonCategory() == "lawyer")
+        else if(directionMoney && persons[index].getpersonCategory() !== "bandit")
         {  
             score -= 50;
             index++;       
         }
         //////////////////////////////////direction handcuffs////////////////////
-        if(directionHandcuffs && persons[index].getpersonCategory() == "police")
+        if(directionHandcuffs && persons[index].getpersonCategory() === "police")
         {  
             score += 50;
             index++; 
         }
-        else if(directionHandcuffs && persons[index].getpersonCategory() == "bandit")
-        {  
-            score -= 50;
-            index++;       
-        }
-        else if(directionHandcuffs && persons[index].getpersonCategory() == "lawyer")
+        else if(directionHandcuffs && persons[index].getpersonCategory() !== "police")
         {  
             score -= 50;
             index++;       
@@ -173,7 +159,7 @@ window.addEventListener('load',function()
         if(score < 0)score = 0;
                
         ctx.font = "30px Comic Sans MS";
-        ctx.fillStyle = "rgb(25, 255, 100)";
+        ctx.fillStyle = "rgb(0, 0, 0)";
         ctx.textAlign = "center";
         ctx.fillText("Score : "+score, 100, 50);
         requestAnimationFrame(animate);
